@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>...</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            padding: 10px;
+            overflow: hidden;
+            height: 100vh;
+        }
+        #output {
+            white-space: pre-wrap;
+            word-break: break-all;
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+        }
+        /* Warna error merah */
+        .error-text {
+            color: #ff0040;
+        }
+        .error-blink {
+            animation: blink 0.5s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body>
+
+<div id="output"></div>
+
+<script>
+// ========================================
+// DATA KARAKTER
+// ========================================
+
+const chars = [
+    '!','@','#','$','%','^','&','*','(',')','_','+','=','{','}','[',']',
+    '|','\\',';',':','"','<','>',',','.','?','/','~','`','¡','¢','£',
+    '¤','¥','¦','§','¨','©','ª','«','¬','®','¯','°','±','²','³','´',
+    'µ','¶','·','¸','¹','º','»','¼','½','¾','¿','×','÷','ø','þ','ÿ',
+    'Œ','œ','Š','š','Ÿ','Ž','ž','ƒ','ˆ','˜','–','—','‘','’','‚','“',
+    '”','„','†','‡','•','…','‰','€','™','←','↑','→','↓','↔','↕','↖',
+    '↗','↘','↙','↚','↛','↜','↝','↞','↟','↠','↡','↢','↣','↤','↥','↦',
+    '↧','↨','↩','↪','↫','↬','↭','↮','↯','↰','↱','↲','↳','↴','↵','↶',
+    '↷','↸','↹','↺','↻','⇄','⇅','⇆','⇇','⇈','⇉','⇊','⇋','⇌','⇍','⇎',
+    '⇏','⇐','⇑','⇒','⇓','⇔','⇕','⇖','⇗','⇘','⇙','⇚','⇛','⇜','⇝','⇞',
+    '⇟','⇠','⇡','⇢','⇣','⇤','⇥','⇦','⇧','⇨','⇩','⇪','⇫','⇬','⇭','⇮',
+    '⇯','⇰','⇱','⇲','⇳','⇴','⇵','⇶','⇷','⇸','⇹','⇺','⇻','⇼','⇽','⇾',
+    '⇿','∀','∂','∃','∅','∇','∈','∉','∊','∋','∌','∍','∎','∏','∐','∑',
+    '−','∓','∔','∕','∖','∗','∘','∙','√','∛','∜','∝','∞','∟','∠','∡',
+    '∢','∣','∤','∥','∦','∧','∨','∩','∪','∫','∬','∭','∮','∯','∰','∱',
+    '∲','∳','∴','∵','∶','∷','∸','∹','∺','∻','∼','∽','∾','∿','≀','≁',
+    '≂','≃','≄','≅','≆','≇','≈','≉','≊','≋','≌','≍','≎','≏','≐','≑'
+];
+
+const hex = '0123456789ABCDEF';
+const bin = '01';
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+// ========================================
+// PESAN ERROR SISTEM (JARANG MUNCUL)
+// ========================================
+
+const errorMessages = [
+    '⚠️ SYSTEM ERROR 0x3F1A',
+    '💀 CRITICAL FAILURE',
+    '🔥 UNAUTHORIZED ACCESS',
+    '⚡ DATA CORRUPTED',
+    '📡 CONNECTION LOST',
+    '🌀 KERNEL PANIC',
+    '☠️ VIRUS DETECTED',
+    '💢 BUFFER OVERFLOW',
+    '🔴 SECURITY BREACH',
+    '⚠️ FATAL EXCEPTION',
+    '💀 MEMORY DUMP FAILED',
+    '🔥 FIREWALL BYPASSED',
+    '⚡ SYSTEM HALTED',
+    '📡 ENCRYPTION FAILED',
+    '🌀 DATABASE CORRUPTED',
+    '⚠️ BOOT SECTOR DAMAGED',
+    '💀 SEGFAULT 0x7F3E',
+    '🔥 ROOTKIT INSTALLED',
+    '⚡ POWER SURGE DETECTED',
+    '📡 NETWORK INFECTED'
+];
+
+// ========================================
+// GENERATE TANPA HENTI + ERROR JARANG
+// ========================================
+
+const output = document.getElementById('output');
+let buffer = '';
+
+function generateBatch() {
+    let batch = '';
+    const lines = 50 + Math.floor(Math.random() * 100);
+    let errorInserted = false;
+    
+    for (let i = 0; i < lines; i++) {
+        const len = 40 + Math.floor(Math.random() * 80);
+        let line = '';
+        
+        // === BIKIN TEKS ACAK ===
+        for (let j = 0; j < len; j++) {
+            const r = Math.random();
+            if (r < 0.3) line += chars[Math.floor(Math.random() * chars.length)];
+            else if (r < 0.5) line += hex[Math.floor(Math.random() * 16)];
+            else if (r < 0.65) line += bin[Math.floor(Math.random() * 2)];
+            else if (r < 0.8) line += letters[Math.floor(Math.random() * letters.length)];
+            else line += Math.floor(Math.random() * 10);
+        }
+        
+        // === ERROR SISTEM JARANG (2-5% chance) ===
+        if (Math.random() < 0.035 && !errorInserted) {
+            const msg = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+            const pos = Math.floor(Math.random() * (len - msg.length + 1));
+            
+            // Sisipkan error di tengah baris dengan warna merah
+            const before = line.substring(0, pos);
+            const after = line.substring(pos);
+            
+            // Tambahkan error code
+            const errorCode = ' [0x' + Math.floor(Math.random() * 65535).toString(16).toUpperCase() + ']';
+            
+            line = before + ' ' + msg + errorCode + ' ' + after;
+            errorInserted = true;
+        }
+        
+        // === ERROR SEPERAT (3-7% chance) ===
+        if (Math.random() < 0.05 && !errorInserted) {
+            const codes = [
+                ' [ERR 0x' + Math.floor(Math.random() * 65535).toString(16).toUpperCase() + ']',
+                ' [FAIL 0x' + Math.floor(Math.random() * 65535).toString(16).toUpperCase() + ']',
+                ' [SEGV 0x' + Math.floor(Math.random() * 65535).toString(16).toUpperCase() + ']',
+                ' [BUS 0x' + Math.floor(Math.random() * 65535).toString(16).toUpperCase() + ']',
+                ' [SIG' + Math.floor(Math.random() * 31 + 1) + ']'
+            ];
+            line += codes[Math.floor(Math.random() * codes.length)];
+            errorInserted = true;
+        }
+        
+        batch += line + '\n';
+    }
+    
+    // === ERROR DI AKHIR BATCH (2% chance) ===
+    if (Math.random() < 0.02) {
+        batch += '\n' + '='.repeat(60) + '\n';
+        batch += '⚠️ ' + errorMessages[Math.floor(Math.random() * errorMessages.length)] + 
+                 ' [0x' + Math.floor(Math.random() * 65535).toString(16).toUpperCase() + ']\n';
+        batch += '='.repeat(60) + '\n';
+    }
+    
+    buffer += batch;
+    
+    // Keep buffer manageable
+    if (buffer.length > 500000) {
+        buffer = buffer.substring(buffer.length - 250000);
+    }
+    
+    // Tampilkan dengan warna error
+    displayWithErrors(buffer);
+}
+
+// ========================================
+// TAMPILKAN DENGAN WARNA ERROR
+// ========================================
+
+function displayWithErrors(text) {
+    // Split lines
+    const lines = text.split('\n');
+    let html = '';
+    
+    for (let line of lines) {
+        // Cek apakah line mengandung error
+        if (line.includes('ERROR') || line.includes('FAIL') || 
+            line.includes('SEGV') || line.includes('ERR') ||
+            line.includes('SIG') || line.includes('CRITICAL') ||
+            line.includes('KERNEL') || line.includes('VIRUS') ||
+            line.includes('BREACH') || line.includes('PANIC') ||
+            line.includes('HALTED') || line.includes('CORRUPTED')) {
+            // Error - warna merah + kadang berkedip
+            const blink = Math.random() < 0.3 ? ' error-blink' : '';
+            html += `<div class="error-text${blink}">${escapeHtml(line)}</div>`;
+        } else {
+            html += `<div>${escapeHtml(line)}</div>`;
+        }
+    }
+    
+    output.innerHTML = html;
+    output.scrollTop = output.scrollHeight;
+}
+
+// ========================================
+// ESCAPE HTML
+// ========================================
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// ========================================
+// JALANKAN TERUS
+// ========================================
+
+setInterval(generateBatch, 100);
+
+// Generate awal langsung banyak
+for (let i = 0; i < 20; i++) {
+    generateBatch();
+}
+</script>
+
+</body>
+</html>
