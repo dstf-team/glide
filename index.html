@@ -2,22 +2,17 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no">
 
-<title>System Failure</title>
+<title>System Monitor</title>
 
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
 
 *{
     margin:0;
@@ -25,49 +20,38 @@
     box-sizing:border-box;
 }
 
-
-/* =====================================================
-   FULL VIEWPORT
-===================================================== */
-
 html,
 body{
 
     width:100%;
     height:100%;
 
-    min-width:100%;
-    min-height:100%;
-
     overflow:hidden;
 
     background:#000;
 
-    color:#fff;
+    color:#d8d8d8;
 
     font-family:
         "Courier New",
+        Consolas,
         monospace;
 
 }
 
 
-/* =====================================================
+/* ==========================================
    SCREEN
-===================================================== */
+========================================== */
 
 #screen{
 
     position:fixed;
 
-    left:0;
-    top:0;
+    inset:0;
 
     width:100vw;
     height:100vh;
-
-    min-width:100vw;
-    min-height:100vh;
 
     overflow:hidden;
 
@@ -76,11 +60,11 @@ body{
 }
 
 
-/* =====================================================
-   CONTAINER
-===================================================== */
+/* ==========================================
+   LOG AREA
+========================================== */
 
-#terminal{
+#logs{
 
     position:absolute;
 
@@ -95,11 +79,11 @@ body{
 }
 
 
-/* =====================================================
-   BARIS GLIDE
-===================================================== */
+/* ==========================================
+   BARIS LOG
+========================================== */
 
-.line{
+.log{
 
     position:absolute;
 
@@ -107,50 +91,33 @@ body{
 
     width:max-content;
 
-    max-width:none;
-
     white-space:nowrap;
 
-    color:#fff;
-
-    font-weight:normal;
+    font-size:
+        clamp(10px,1vw,15px);
 
     line-height:1;
 
-    opacity:.95;
+    color:#d5d5d5;
+
+    opacity:.88;
+
+    font-weight:normal;
 
     will-change:transform;
 
-    text-shadow:
-        0 0 2px #fff;
-
 }
 
 
-/* =====================================================
-   GLIDE KIRI
-===================================================== */
+/* ==========================================
+   LOG BERGERAK KIRI
+========================================== */
 
-.left{
+.move-left{
 
     animation:
         moveLeft
-        var(--duration)
-        linear
-        infinite;
-
-}
-
-
-/* =====================================================
-   GLIDE KANAN
-===================================================== */
-
-.right{
-
-    animation:
-        moveRight
-        var(--duration)
+        var(--speed)
         linear
         infinite;
 
@@ -160,14 +127,33 @@ body{
 @keyframes moveLeft{
 
     from{
+
         transform:
         translateX(100vw);
+
     }
 
     to{
+
         transform:
-        translateX(-120%);
+        translateX(-130%);
+
     }
+
+}
+
+
+/* ==========================================
+   LOG BERGERAK KANAN
+========================================== */
+
+.move-right{
+
+    animation:
+        moveRight
+        var(--speed)
+        linear
+        infinite;
 
 }
 
@@ -175,191 +161,164 @@ body{
 @keyframes moveRight{
 
     from{
+
         transform:
-        translateX(-120%);
+        translateX(-130%);
+
     }
 
     to{
+
         transform:
         translateX(100vw);
+
     }
 
 }
 
 
-/* =====================================================
-   GLITCH LINE
-===================================================== */
+/* ==========================================
+   ERROR
+========================================== */
 
-.glitch{
+.error{
+
+    color:#ffffff;
+
+    font-weight:bold;
+
+}
+
+
+/* ==========================================
+   WARNING
+========================================== */
+
+.warning{
+
+    color:#bcbcbc;
+
+}
+
+
+/* ==========================================
+   ERROR KEDIP HALUS
+========================================== */
+
+.flicker{
 
     animation:
-        glitch
+        flicker
+        .25s
+        infinite;
+
+}
+
+
+@keyframes flicker{
+
+    0%{
+        opacity:1;
+    }
+
+    45%{
+        opacity:.45;
+    }
+
+    70%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:.65;
+    }
+
+}
+
+
+/* ==========================================
+   SYSTEM MESSAGE BESAR
+========================================== */
+
+.system-alert{
+
+    position:absolute;
+
+    z-index:100;
+
+    color:#fff;
+
+    font-weight:bold;
+
+    font-size:
+        clamp(
+            18px,
+            3vw,
+            45px
+        );
+
+    white-space:nowrap;
+
+    text-shadow:
+        0 0 5px #fff;
+
+    animation:
+        alertGlitch
         .12s
         infinite;
 
 }
 
 
-@keyframes glitch{
+@keyframes alertGlitch{
 
     0%{
-        transform:translateX(0);
+        transform:translate(0);
     }
 
     25%{
-        transform:translateX(-8px);
+        transform:translate(-5px,1px);
     }
 
     50%{
-        transform:translateX(7px);
+        transform:translate(4px,-1px);
     }
 
     75%{
-        transform:translateX(-4px);
+        transform:translate(-2px,2px);
     }
 
     100%{
-        transform:translateX(0);
+        transform:translate(0);
     }
 
 }
 
 
-/* =====================================================
-   ERROR BESAR
-===================================================== */
+/* ==========================================
+   SCAN
+========================================== */
 
-.big-error{
-
-    position:absolute;
-
-    z-index:50;
-
-    color:#fff;
-
-    font-weight:bold;
-
-    white-space:nowrap;
-
-    text-shadow:
-        0 0 4px #fff,
-        0 0 10px #fff;
-
-    animation:
-        bigGlitch
-        .15s
-        infinite;
-
-}
-
-
-@keyframes bigGlitch{
-
-    0%{
-        transform:
-        translate(0,0);
-    }
-
-    20%{
-        transform:
-        translate(-12px,4px);
-    }
-
-    40%{
-        transform:
-        translate(10px,-3px);
-    }
-
-    60%{
-        transform:
-        translate(-6px,2px);
-    }
-
-    80%{
-        transform:
-        translate(8px,-4px);
-    }
-
-    100%{
-        transform:
-        translate(0,0);
-    }
-
-}
-
-
-/* =====================================================
-   FLASH
-===================================================== */
-
-#flash{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:999;
-
-    background:#fff;
-
-    pointer-events:none;
-
-    opacity:0;
-
-}
-
-
-.flash{
-
-    animation:
-        flash
-        .15s
-        linear;
-
-}
-
-
-@keyframes flash{
-
-    0%{
-        opacity:.8;
-    }
-
-    100%{
-        opacity:0;
-    }
-
-}
-
-
-/* =====================================================
-   SCANLINE
-===================================================== */
-
-#scanline{
+#scan{
 
     position:fixed;
 
     left:0;
-
-    top:-5px;
+    top:-3px;
 
     width:100%;
 
-    height:2px;
+    height:1px;
 
-    background:#fff;
+    background:#777;
 
-    opacity:.12;
-
-    z-index:1000;
+    opacity:.15;
 
     pointer-events:none;
 
     animation:
         scan
-        2s
+        3s
         linear
         infinite;
 
@@ -369,7 +328,7 @@ body{
 @keyframes scan{
 
     from{
-        top:-5px;
+        top:0;
     }
 
     to{
@@ -379,18 +338,9 @@ body{
 }
 
 
-/* =====================================================
-   HILANGKAN SCROLLBAR
-===================================================== */
-
-::-webkit-scrollbar{
-    display:none;
-}
-
-
-/* =====================================================
+/* ==========================================
    FULLSCREEN
-===================================================== */
+========================================== */
 
 :fullscreen{
 
@@ -399,6 +349,15 @@ body{
 
     background:#000;
 
+}
+
+
+/* ==========================================
+   HILANGKAN SCROLL
+========================================== */
+
+::-webkit-scrollbar{
+    display:none;
 }
 
 </style>
@@ -411,35 +370,71 @@ body{
 
 <div id="screen">
 
-    <div id="terminal"></div>
+    <div id="logs"></div>
 
 </div>
 
 
-<div id="flash"></div>
-
-<div id="scanline"></div>
+<div id="scan"></div>
 
 
 <script>
 
 
-/* =====================================================
+/* =================================================
    ELEMENT
-===================================================== */
+================================================= */
 
-const terminal =
-document.getElementById("terminal");
-
-const flash =
-document.getElementById("flash");
+const logs =
+document.getElementById("logs");
 
 
-/* =====================================================
-   PESAN ERROR
-===================================================== */
+/* =================================================
+   ERROR SYSTEM
+================================================= */
 
-const messages = [
+const errors = [
+
+    "SYSTEM ERROR",
+
+    "SYSTEM FAILURE",
+
+    "SYSTEM RESPONSE FAILURE",
+
+    "SYSTEM PROCESS ERROR",
+
+    "SYSTEM RESOURCE FAILURE",
+
+    "CRITICAL SYSTEM ERROR",
+
+    "FATAL SYSTEM ERROR",
+
+    "SYSTEM INTERRUPTED",
+
+    "SYSTEM RECOVERY FAILURE",
+
+    "SYSTEM SERVICE FAILURE",
+
+    "SYSTEM HALTED",
+
+    "SYSTEM PROCESS TERMINATED",
+
+    "SYSTEM RESOURCE NOT AVAILABLE",
+
+    "SYSTEM MEMORY ERROR",
+
+    "SYSTEM IO FAILURE",
+
+    "SYSTEM TIMEOUT"
+
+];
+
+
+/* =================================================
+   CONNECTION
+================================================= */
+
+const connections = [
 
     "NO CONNECTION",
 
@@ -449,59 +444,153 @@ const messages = [
 
     "CONNECTION TIMEOUT",
 
-    "NETWORK FAILURE",
+    "CONNECTION REFUSED",
 
-    "NETWORK CONNECTION FAILED",
+    "REMOTE CONNECTION FAILED",
 
-    "DATABASE CORRUPTED",
+    "SERVER CONNECTION FAILURE",
+
+    "SERVER NOT RESPONDING",
+
+    "NETWORK CONNECTION FAILURE",
+
+    "NETWORK TIMEOUT",
+
+    "HOST UNREACHABLE",
+
+    "REMOTE HOST NOT FOUND",
+
+    "SOCKET CONNECTION FAILURE",
+
+    "TCP CONNECTION FAILED",
+
+    "TCP SESSION LOST",
+
+    "NETWORK SERVICE UNAVAILABLE"
+
+];
+
+
+/* =================================================
+   DATABASE
+================================================= */
+
+const database = [
+
+    "DATABASE ERROR",
 
     "DATABASE CONNECTION FAILURE",
+
+    "DATABASE CORRUPTED",
 
     "DATABASE READ FAILURE",
 
     "DATABASE WRITE FAILURE",
 
+    "DATABASE RESPONSE TIMEOUT",
+
+    "DATABASE SERVICE UNAVAILABLE",
+
+    "DATABASE INTEGRITY CHECK FAILED",
+
+    "DATABASE TRANSACTION FAILED",
+
+    "DATABASE QUERY FAILURE",
+
+    "DATABASE LOCK FAILURE",
+
+    "DATABASE RECOVERY FAILED"
+
+];
+
+
+/* =================================================
+   DATA
+================================================= */
+
+const dataErrors = [
+
     "DATA CORRUPTED",
 
-    "DATA INTEGRITY FAILURE",
+    "DATA READ FAILURE",
 
-    "DATA READ ERROR",
-
-    "DATA WRITE ERROR",
+    "DATA WRITE FAILURE",
 
     "DATA STREAM INTERRUPTED",
 
-    "DATA TRANSMISSION FAILURE",
+    "DATA INTEGRITY FAILURE",
 
-    "PACKET LOST",
+    "DATA VALIDATION FAILURE",
 
-    "PACKET TRANSMISSION FAILED",
+    "DATA TRANSMISSION ERROR",
 
-    "PACKET TIMEOUT",
+    "DATA PACKET LOST",
 
-    "SERVER NOT RESPONDING",
+    "DATA BUFFER ERROR",
 
-    "SERVER CONNECTION FAILURE",
+    "DATA CHECKSUM FAILURE",
 
-    "REMOTE HOST NOT FOUND",
+    "INVALID DATA RECEIVED",
 
-    "HOST CONNECTION REFUSED",
+    "CORRUPTED DATA BLOCK"
 
-    "NETWORK TIMEOUT",
+];
 
-    "REQUEST TIMEOUT",
 
-    "REQUEST FAILED",
+/* =================================================
+   FILE
+================================================= */
 
-    "RESPONSE FAILURE",
+const fileErrors = [
 
-    "INVALID RESPONSE",
+    "FILE READ ERROR",
 
-    "INVALID DATA",
+    "FILE WRITE ERROR",
 
-    "CORRUPTED PACKET",
+    "FILE ACCESS FAILURE",
 
-    "MEMORY ERROR",
+    "FILE CORRUPTED",
+
+    "FILE NOT FOUND",
+
+    "FILE SYSTEM ERROR",
+
+    "STORAGE READ FAILURE",
+
+    "STORAGE WRITE FAILURE",
+
+    "DISK READ ERROR",
+
+    "DISK WRITE ERROR",
+
+    "IO DEVICE FAILURE",
+
+    "INPUT OUTPUT ERROR"
+
+];
+
+
+/* =================================================
+   PROCESS
+================================================= */
+
+const processErrors = [
+
+    "PROCESS ERROR",
+
+    "PROCESS NOT RESPONDING",
+
+    "PROCESS TERMINATED",
+
+    "PROCESS TIMEOUT",
+
+    "PROCESS MEMORY ERROR",
+
+    "THREAD FAILURE",
+
+    "THREAD TIMEOUT",
+
+    "MEMORY ACCESS ERROR",
 
     "MEMORY READ FAILURE",
 
@@ -509,151 +598,69 @@ const messages = [
 
     "BUFFER OVERFLOW",
 
-    "BUFFER UNDERFLOW",
-
-    "SYSTEM FAILURE",
-
-    "SYSTEM ERROR",
-
-    "SYSTEM INTERRUPTED",
-
-    "SYSTEM RESPONSE FAILURE",
-
-    "PROCESS FAILURE",
-
-    "PROCESS TERMINATED",
-
-    "PROCESS NOT RESPONDING",
-
-    "KERNEL ERROR",
-
-    "KERNEL PANIC",
-
-    "FATAL EXCEPTION",
-
-    "FATAL SYSTEM ERROR",
-
-    "UNEXPECTED ERROR",
-
-    "UNKNOWN ERROR",
-
-    "ACCESS DENIED",
-
-    "PERMISSION DENIED",
-
-    "AUTHENTICATION FAILURE",
-
-    "AUTHORIZATION FAILURE",
-
-    "SECURITY CHECK FAILURE",
-
-    "PROTOCOL ERROR",
-
-    "PROTOCOL FAILURE",
-
-    "HANDSHAKE FAILURE",
-
-    "SOCKET ERROR",
-
-    "SOCKET CONNECTION LOST",
-
-    "TCP CONNECTION FAILED",
-
-    "IP CONNECTION FAILURE",
-
-    "DNS RESOLUTION FAILED",
-
-    "HOST UNREACHABLE",
-
-    "SERVICE UNAVAILABLE",
-
-    "SERVICE FAILURE",
-
-    "FILE NOT FOUND",
-
-    "FILE READ FAILURE",
-
-    "FILE WRITE FAILURE",
-
-    "FILE CORRUPTED",
-
-    "STORAGE FAILURE",
-
-    "DISK READ ERROR",
-
-    "DISK WRITE ERROR",
-
-    "IO ERROR",
-
-    "INPUT OUTPUT FAILURE",
-
-    "OPERATION FAILED",
-
-    "OPERATION INTERRUPTED",
-
-    "EXECUTION FAILURE",
-
-    "COMMAND FAILURE",
-
-    "RESOURCE NOT AVAILABLE",
-
-    "RESOURCE FAILURE",
-
-    "SYSTEM HALTED",
-
-    "SYSTEM RECOVERY FAILED",
-
-    "RECOVERY FAILURE",
-
-    "BACKUP FAILURE",
-
-    "RESTORE FAILURE",
-
-    "ENCRYPTION FAILURE",
-
-    "DECRYPTION FAILURE",
-
-    "HASH VERIFICATION FAILED",
-
-    "CHECKSUM ERROR",
-
-    "SIGNATURE VERIFICATION FAILED",
-
-    "INVALID SESSION",
-
-    "SESSION EXPIRED",
-
-    "SESSION CONNECTION LOST",
-
-    "SERVICE CONNECTION LOST"
+    "RESOURCE ALLOCATION FAILURE"
 
 ];
 
 
-/* =====================================================
-   KARAKTER ABSURD
-===================================================== */
+/* =================================================
+   NORMAL SYSTEM LOG
+================================================= */
 
-const symbols =
+const normalLogs = [
 
-"!@#$%^&*()_+-=[]{}|;:',.<>?/\\~`" +
+    "SYSTEM INITIALIZING",
 
-"0123456789" +
+    "SYSTEM CHECK",
 
-"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+    "SYSTEM PROCESS RUNNING",
 
-"abcdefghijklmnopqrstuvwxyz" +
+    "SYSTEM SERVICE STARTED",
 
-"∆∑∂∫∞≠≈√Ωλµ" +
+    "SYSTEM SERVICE CHECK",
 
-"←↑→↓↔⇄⇅" +
+    "NETWORK SERVICE CHECK",
 
-"░▒▓█";
+    "DATABASE SERVICE CHECK",
+
+    "MEMORY CHECK",
+
+    "STORAGE CHECK",
+
+    "PROCESS MONITOR",
+
+    "DATA STREAM",
+
+    "DATA PROCESSING",
+
+    "REQUEST PROCESSING",
+
+    "SERVER RESPONSE",
+
+    "CLIENT REQUEST",
+
+    "NETWORK PACKET",
+
+    "SERVICE RESPONSE",
+
+    "SYSTEM MONITOR",
+
+    "BACKGROUND PROCESS",
+
+    "RESOURCE MONITOR",
+
+    "PROCESS MONITORING",
+
+    "CONNECTION MONITOR",
+
+    "DATABASE MONITOR"
+
+];
 
 
-/* =====================================================
+/* =================================================
    RANDOM
-===================================================== */
+================================================= */
 
 function random(min,max){
 
@@ -676,13 +683,88 @@ function pick(arr){
 }
 
 
-/* =====================================================
-   ABSURD TEXT
-===================================================== */
+/* =================================================
+   RANDOM ID
+================================================= */
 
-function randomNoise(length){
+function id(){
+
+    return Math
+        .floor(
+            Math.random()*999999
+        )
+        .toString()
+        .padStart(6,"0");
+
+}
+
+
+/* =================================================
+   TIME
+================================================= */
+
+function time(){
+
+    const now =
+        new Date();
+
+    return (
+
+        now
+        .getHours()
+        .toString()
+        .padStart(2,"0")
+
+        + ":" +
+
+        now
+        .getMinutes()
+        .toString()
+        .padStart(2,"0")
+
+        + ":" +
+
+        now
+        .getSeconds()
+        .toString()
+        .padStart(2,"0")
+
+    );
+
+}
+
+
+/* =================================================
+   RANDOM HEX
+================================================= */
+
+function hex(){
+
+    return Math
+        .floor(
+            Math.random()*16777215
+        )
+        .toString(16)
+        .toUpperCase()
+        .padStart(6,"0");
+
+}
+
+
+/* =================================================
+   ABSURD DATA
+================================================= */
+
+function noise(){
+
+    const chars =
+        "0123456789ABCDEF";
 
     let result="";
+
+    const length =
+        random(10,50);
+
 
     for(
         let i=0;
@@ -691,251 +773,26 @@ function randomNoise(length){
     ){
 
         result +=
-            symbols[
-                Math.floor(
-                    Math.random() *
-                    symbols.length
+            chars[
+                random(
+                    0,
+                    chars.length-1
                 )
             ];
 
     }
+
 
     return result;
 
 }
 
 
-/* =====================================================
-   RANDOM ERROR CODE
-===================================================== */
-
-function errorCode(){
-
-    const code =
-        Math.floor(
-            Math.random() *
-            16777215
-        )
-        .toString(16)
-        .toUpperCase();
-
-    return " [0x" + code + "]";
-
-}
-
-
-/* =====================================================
-   BUAT ISI BARIS
-===================================================== */
-
-function createContent(){
-
-    const mode =
-        Math.random();
-
-
-    let text="";
-
-
-    /* ================================================
-       ERROR
-    ================================================ */
-
-    if(mode < .45){
-
-        text =
-            pick(messages) +
-            errorCode();
-
-    }
-
-
-    /* ================================================
-       ERROR + ABSURD
-    ================================================ */
-
-    else if(mode < .75){
-
-        text =
-            pick(messages) +
-            " " +
-            randomNoise(
-                random(20,80)
-            );
-
-    }
-
-
-    /* ================================================
-       FULL ABSURD
-    ================================================ */
-
-    else{
-
-        text =
-            randomNoise(
-                random(60,180)
-            );
-
-    }
-
-
-    return text;
-
-}
-
-
-/* =====================================================
-   BUAT BARIS
-===================================================== */
-
-function createLine(index){
-
-    const line =
-        document.createElement("div");
-
-
-    line.className =
-        "line";
-
-
-    line.textContent =
-        createContent();
-
-
-    /* ================================================
-       POSISI VERTIKAL
-    ================================================ */
-
-    const y =
-        (index / 70) * 100;
-
-
-    line.style.top =
-        y + "vh";
-
-
-    /* ================================================
-       RANDOM FONT
-    ================================================ */
-
-    line.style.fontSize =
-        random(9,18) + "px";
-
-
-    /* ================================================
-       RANDOM OPACITY
-    ================================================ */
-
-    line.style.opacity =
-        (random(55,100)/100);
-
-
-    /* ================================================
-       RANDOM PANJANG
-    ================================================ */
-
-    line.style.minWidth =
-        random(120,280) + "vw";
-
-
-    /* ================================================
-       RANDOM SPEED
-    ================================================ */
-
-    line.style.setProperty(
-
-        "--duration",
-
-        random(4,14) + "s"
-
-    );
-
-
-    /* ================================================
-       RANDOM ARAH
-    ================================================ */
-
-    if(
-        Math.random() < .5
-    ){
-
-        line.classList.add(
-            "left"
-        );
-
-    }
-
-    else{
-
-        line.classList.add(
-            "right"
-        );
-
-    }
-
-
-    /* ================================================
-       GLITCH RANDOM
-    ================================================ */
-
-    if(
-        Math.random() < .18
-    ){
-
-        line.classList.add(
-            "glitch"
-        );
-
-    }
-
-
-    terminal.appendChild(
-        line
-    );
-
-
-    /* ================================================
-       HAPUS DAN BUAT ULANG
-    ================================================ */
-
-    setTimeout(
-
-        ()=>{
-
-            line.remove();
-
-            createLine(index);
-
-        },
-
-        random(5000,15000)
-
-    );
-
-}
-
-
-/* =====================================================
-   BUAT 75 BARIS
-===================================================== */
-
-for(
-    let i=0;
-    i<75;
-    i++
-){
-
-    createLine(i);
-
-}
-
-
-/* =====================================================
-   ERROR BESAR
-===================================================== */
-
-function bigError(){
+/* =================================================
+   BUAT LOG
+================================================= */
+
+function makeLog(index){
 
     const el =
         document.createElement(
@@ -944,26 +801,324 @@ function bigError(){
 
 
     el.className =
-        "big-error";
+        "log";
+
+
+    /* =========================================
+       PILIH JENIS
+    ========================================= */
+
+    const chance =
+        Math.random();
+
+
+    let message;
+
+
+    if(chance < .12){
+
+        message =
+            pick(errors);
+
+        el.classList.add(
+            "error"
+        );
+
+    }
+
+    else if(chance < .24){
+
+        message =
+            pick(connections);
+
+        el.classList.add(
+            "error"
+        );
+
+    }
+
+    else if(chance < .35){
+
+        message =
+            pick(database);
+
+        el.classList.add(
+            "error"
+        );
+
+    }
+
+    else if(chance < .45){
+
+        message =
+            pick(dataErrors);
+
+        el.classList.add(
+            "error"
+        );
+
+    }
+
+    else if(chance < .53){
+
+        message =
+            pick(fileErrors);
+
+        el.classList.add(
+            "error"
+        );
+
+    }
+
+    else if(chance < .62){
+
+        message =
+            pick(processErrors);
+
+        el.classList.add(
+            "error"
+        );
+
+    }
+
+    else{
+
+        message =
+            pick(normalLogs);
+
+    }
+
+
+    /* =========================================
+       FORMAT SYSTEM LOG
+    ========================================= */
+
+    const format =
+        "[" +
+        time() +
+        "] " +
+
+        "[PID:" +
+        random(100,9999) +
+        "] " +
+
+        message;
+
+
+    /* =========================================
+       DATA TAMBAHAN
+    ========================================= */
+
+    let suffix;
+
+
+    if(
+        Math.random() < .45
+    ){
+
+        suffix =
+            " | CODE:" +
+            hex();
+
+    }
+
+    else if(
+        Math.random() < .35
+    ){
+
+        suffix =
+            " | BLOCK:" +
+            noise();
+
+    }
+
+    else{
+
+        suffix =
+            " | STATUS:" +
+            (
+                Math.random() < .5
+                ? "FAILED"
+                : "UNKNOWN"
+            );
+
+    }
 
 
     el.textContent =
-        pick(messages);
+        format +
+        suffix;
+
+
+    /* =========================================
+       POSISI
+    ========================================= */
+
+    const row =
+        (index / 75) * 100;
+
+
+    el.style.top =
+        row + "vh";
+
+
+    /* =========================================
+       RANDOM SIZE
+    ========================================= */
+
+    el.style.fontSize =
+        random(10,16) + "px";
+
+
+    /* =========================================
+       RANDOM SPEED
+    ========================================= */
+
+    el.style.setProperty(
+
+        "--speed",
+
+        random(5,14) + "s"
+
+    );
+
+
+    /* =========================================
+       RANDOM DIRECTION
+    ========================================= */
+
+    if(
+        Math.random() < .5
+    ){
+
+        el.classList.add(
+            "move-left"
+        );
+
+    }
+
+    else{
+
+        el.classList.add(
+            "move-right"
+        );
+
+    }
+
+
+    /* =========================================
+       RANDOM FLICKER
+    ========================================= */
+
+    if(
+        Math.random() < .06
+    ){
+
+        el.classList.add(
+            "flicker"
+        );
+
+    }
+
+
+    logs.appendChild(
+        el
+    );
+
+
+    /* =========================================
+       HAPUS
+    ========================================= */
+
+    setTimeout(
+
+        ()=>{
+
+            el.remove();
+
+            makeLog(index);
+
+        },
+
+        random(
+            6000,
+            16000
+        )
+
+    );
+
+}
+
+
+/* =================================================
+   BUAT 75 BARIS PENUH
+================================================= */
+
+for(
+    let i=0;
+    i<75;
+    i++
+){
+
+    makeLog(i);
+
+}
+
+
+/* =================================================
+   ALERT BESAR
+================================================= */
+
+function systemAlert(){
+
+    const el =
+        document.createElement(
+            "div"
+        );
+
+
+    el.className =
+        "system-alert";
+
+
+    const types = [
+
+        "CONNECTION FAILURE",
+
+        "DATABASE CORRUPTED",
+
+        "SYSTEM ERROR",
+
+        "DATA INTEGRITY FAILURE",
+
+        "SERVER NOT RESPONDING",
+
+        "MEMORY ACCESS ERROR",
+
+        "NETWORK FAILURE",
+
+        "SYSTEM RECOVERY FAILURE",
+
+        "PROCESS TERMINATED",
+
+        "FATAL SYSTEM ERROR"
+
+    ];
+
+
+    el.textContent =
+        pick(types);
 
 
     el.style.left =
-        random(5,60) + "vw";
+        random(5,65) + "vw";
 
 
     el.style.top =
         random(10,85) + "vh";
 
 
-    el.style.fontSize =
-        random(22,60) + "px";
-
-
-    terminal.appendChild(
+    logs.appendChild(
         el
     );
 
@@ -977,8 +1132,8 @@ function bigError(){
         },
 
         random(
-            400,
-            1400
+            500,
+            1600
         )
 
     );
@@ -986,66 +1141,57 @@ function bigError(){
 }
 
 
-/* =====================================================
-   ERROR BESAR BERKALA
-===================================================== */
+/* =================================================
+   ALERT SESekali
+================================================= */
 
 setInterval(
 
     ()=>{
 
         if(
-            Math.random() < .7
+            Math.random() < .35
         ){
 
-            bigError();
+            systemAlert();
 
         }
 
     },
 
-    900
+    1000
 
 );
 
 
-/* =====================================================
-   FLASH RANDOM
-===================================================== */
+/* =================================================
+   TAMBAHKAN BARIS BARU TERUS
+================================================= */
 
 setInterval(
 
     ()=>{
 
-        if(
-            Math.random() < .08
-        ){
+        const index =
+            random(0,74);
 
-            flash.classList.remove(
-                "flash"
-            );
-
-            void flash.offsetWidth;
-
-            flash.classList.add(
-                "flash"
-            );
-
-        }
+        makeLog(index);
 
     },
 
-    700
+    250
 
 );
 
 
-/* =====================================================
-   FULLSCREEN
-===================================================== */
+/* =================================================
+   DOUBLE CLICK = FULLSCREEN
+================================================= */
 
 document.addEventListener(
+
     "dblclick",
+
     async ()=>{
 
         try{
@@ -1070,24 +1216,7 @@ document.addEventListener(
         }
 
     }
-);
 
-
-/* =====================================================
-   F11 / FULLSCREEN CHANGE
-===================================================== */
-
-document.addEventListener(
-    "fullscreenchange",
-    ()=>{
-
-        document.body.style.width =
-            "100vw";
-
-        document.body.style.height =
-            "100vh";
-
-    }
 );
 
 
