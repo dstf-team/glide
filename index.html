@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
+<head>
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -14,23 +14,23 @@ user-scalable=no">
 
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html,
-body{
+body {
 
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 
-    overflow:hidden;
+    overflow: hidden;
 
-    background:#000;
+    background: #000;
 
-    color:#d8d8d8;
+    color: #d0d0d0;
 
     font-family:
         "Courier New",
@@ -39,211 +39,226 @@ body{
 
 }
 
-#terminal{
+#terminal {
 
-    position:fixed;
+    position: fixed;
 
-    left:0;
-    top:0;
+    inset: 0;
 
-    width:100vw;
-    height:100vh;
+    width: 100vw;
+    height: 100vh;
 
-    padding:8px 12px;
+    padding: 8px 12px;
 
-    overflow:hidden;
+    background: #000;
 
-    background:#000;
-
-}
-
-#output{
-
-    width:100%;
-    height:100%;
-
-    overflow:hidden;
-
-    white-space:pre-wrap;
-
-    word-break:break-all;
-
-    font-size:14px;
-
-    line-height:1.35;
+    overflow: hidden;
 
 }
 
+#output {
 
-/* =====================================
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    font-size: 14px;
+
+    line-height: 1.35;
+
+    white-space: pre-wrap;
+
+    word-break: break-all;
+
+}
+
+
+/* ==========================================
+   BARIS TERMINAL
+========================================== */
+
+.line {
+
+    display: block;
+
+    width: 100%;
+
+    min-height: 19px;
+
+    white-space: pre-wrap;
+
+    word-break: break-all;
+
+    overflow: hidden;
+
+}
+
+
+/* ==========================================
    NORMAL
-===================================== */
+========================================== */
 
-.normal{
+.normal {
 
-    color:#d8d8d8;
+    color: #cfcfcf;
 
 }
 
 
-/* =====================================
+/* ==========================================
    ERROR
-===================================== */
+========================================== */
 
-.error{
+.error {
 
-    color:#fff;
+    color: #ffffff;
 
-    font-weight:bold;
+    font-weight: bold;
 
 }
 
 
-/* =====================================
+/* ==========================================
    WARNING
-===================================== */
+========================================== */
 
-.warning{
+.warning {
 
-    color:#aaa;
-
-}
-
-
-/* =====================================
-   GLITCH
-===================================== */
-
-.glitch{
-
-    animation:
-    glitch .12s infinite;
-
-}
-
-@keyframes glitch{
-
-    0%{
-        transform:translateX(0);
-    }
-
-    25%{
-        transform:translateX(-2px);
-    }
-
-    50%{
-        transform:translateX(2px);
-    }
-
-    75%{
-        transform:translateX(-1px);
-    }
-
-    100%{
-        transform:translateX(0);
-    }
+    color: #999999;
 
 }
 
 
-/* =====================================
+/* ==========================================
    CURSOR
-===================================== */
+========================================== */
 
-#cursor{
+.cursor {
 
-    display:inline-block;
+    display: inline-block;
 
-    width:8px;
+    width: 8px;
 
-    height:15px;
+    height: 15px;
 
-    background:#d8d8d8;
+    background: #ccc;
 
-    margin-left:2px;
+    margin-left: 2px;
 
-    animation:
-    blink .7s infinite;
+    vertical-align: middle;
 
-}
-
-@keyframes blink{
-
-    0%,50%{
-        opacity:1;
-    }
-
-    51%,100%{
-        opacity:0;
-    }
+    animation: blink .7s steps(1) infinite;
 
 }
 
+@keyframes blink {
 
-/* =====================================
-   SCANLINE TIPIS
-===================================== */
-
-#scanline{
-
-    position:fixed;
-
-    left:0;
-    top:0;
-
-    width:100%;
-
-    height:1px;
-
-    background:#777;
-
-    opacity:.12;
-
-    pointer-events:none;
-
-    animation:
-    scan 4s linear infinite;
-
-}
-
-@keyframes scan{
-
-    from{
-        top:0;
+    0%,
+    50% {
+        opacity: 1;
     }
 
-    to{
-        top:100vh;
+    51%,
+    100% {
+        opacity: 0;
     }
 
 }
 
 
-/* =====================================
+/* ==========================================
+   ERROR GLITCH HANYA PADA TEKS
+========================================== */
+
+.glitch {
+
+    animation: textGlitch .08s steps(2) infinite;
+
+}
+
+@keyframes textGlitch {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .45;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+}
+
+
+/* ==========================================
+   SCANLINE
+========================================== */
+
+#scanline {
+
+    position: fixed;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 1px;
+
+    background: #777;
+
+    opacity: .08;
+
+    pointer-events: none;
+
+    animation: scan 5s linear infinite;
+
+}
+
+@keyframes scan {
+
+    from {
+        top: 0;
+    }
+
+    to {
+        top: 100vh;
+    }
+
+}
+
+
+/* ==========================================
    FULLSCREEN
-===================================== */
+========================================== */
 
-:fullscreen{
+:fullscreen {
 
-    width:100vw;
-    height:100vh;
+    width: 100vw;
+    height: 100vh;
 
-    background:#000;
+    background: #000;
 
 }
 
 
-/* =====================================
-   SCROLLBAR
-===================================== */
+/* ==========================================
+   HILANGKAN SCROLLBAR
+========================================== */
 
-::-webkit-scrollbar{
-    display:none;
+::-webkit-scrollbar {
+    display: none;
 }
 
 </style>
 
 </head>
+
 
 <body>
 
@@ -260,359 +275,342 @@ body{
 <script>
 
 
+/* ==================================================
+   ELEMENT
+================================================== */
+
 const output =
-document.getElementById("output");
+    document.getElementById("output");
 
 
-/* =================================================
-   PESAN NORMAL
-================================================= */
+/* ==================================================
+   PESAN SISTEM NORMAL
+================================================== */
 
 const normalMessages = [
 
-"SYSTEM INITIALIZING",
+    "SYSTEM INITIALIZING",
 
-"SYSTEM PROCESS STARTED",
+    "SYSTEM STARTUP",
 
-"SYSTEM SERVICE RUNNING",
+    "SYSTEM PROCESS RUNNING",
 
-"SYSTEM MONITOR ACTIVE",
+    "SYSTEM SERVICE RUNNING",
 
-"SYSTEM RESOURCE CHECK",
+    "SYSTEM MONITOR ACTIVE",
 
-"SYSTEM MEMORY CHECK",
+    "SYSTEM CHECK",
 
-"PROCESS INITIALIZED",
+    "PROCESS INITIALIZED",
 
-"PROCESS STARTED",
+    "PROCESS STARTED",
 
-"PROCESS RUNNING",
+    "PROCESS RUNNING",
 
-"PROCESS MONITOR",
+    "PROCESS MONITOR",
 
-"THREAD INITIALIZED",
+    "THREAD INITIALIZED",
 
-"THREAD RUNNING",
+    "THREAD RUNNING",
 
-"SERVICE STARTED",
+    "SERVICE STARTED",
 
-"SERVICE CHECK",
+    "SERVICE CHECK",
 
-"SERVICE RESPONSE",
+    "SERVICE RESPONSE",
 
-"REQUEST RECEIVED",
+    "REQUEST RECEIVED",
 
-"REQUEST PROCESSING",
+    "REQUEST PROCESSING",
 
-"REQUEST COMPLETED",
+    "REQUEST COMPLETED",
 
-"DATA PROCESSING",
+    "DATA PROCESSING",
 
-"DATA STREAM ACTIVE",
+    "DATA STREAM ACTIVE",
 
-"DATA TRANSMISSION",
+    "DATA TRANSMISSION",
 
-"DATA BUFFER CHECK",
+    "DATA BUFFER CHECK",
 
-"NETWORK CHECK",
+    "NETWORK CHECK",
 
-"NETWORK SERVICE CHECK",
+    "NETWORK SERVICE CHECK",
 
-"SERVER RESPONSE",
+    "SERVER RESPONSE",
 
-"SERVER REQUEST",
+    "SERVER REQUEST",
 
-"CLIENT REQUEST",
+    "CLIENT REQUEST",
 
-"CONNECTION CHECK",
+    "CONNECTION CHECK",
 
-"DATABASE SERVICE CHECK",
+    "DATABASE SERVICE CHECK",
 
-"DATABASE QUERY",
+    "DATABASE QUERY",
 
-"DATABASE TRANSACTION",
+    "DATABASE TRANSACTION",
 
-"STORAGE CHECK",
+    "STORAGE CHECK",
 
-"FILE SYSTEM CHECK",
+    "FILE SYSTEM CHECK",
 
-"MEMORY ALLOCATION",
+    "MEMORY ALLOCATION",
 
-"RESOURCE ALLOCATION",
+    "RESOURCE ALLOCATION",
 
-"RESOURCE CHECK",
+    "RESOURCE CHECK",
 
-"BACKGROUND PROCESS",
+    "BACKGROUND PROCESS",
 
-"PROCESS MONITORING",
+    "PROCESS MONITORING",
 
-"CONNECTION MONITORING"
+    "CONNECTION MONITORING"
 
 ];
 
 
-/* =================================================
-   ERROR
-================================================= */
+/* ==================================================
+   SYSTEM ERROR
+================================================== */
 
-const errorMessages = [
+const systemErrors = [
 
-"SYSTEM ERROR",
+    "SYSTEM ERROR",
 
-"SYSTEM FAILURE",
+    "SYSTEM FAILURE",
 
-"SYSTEM RESPONSE FAILURE",
+    "SYSTEM RESPONSE FAILURE",
 
-"FATAL SYSTEM ERROR",
+    "FATAL SYSTEM ERROR",
 
-"CRITICAL SYSTEM ERROR",
+    "CRITICAL SYSTEM ERROR",
 
-"PROCESS FAILURE",
+    "SYSTEM INTERRUPTED",
 
-"PROCESS TERMINATED",
+    "SYSTEM RECOVERY FAILURE",
 
-"PROCESS NOT RESPONDING",
+    "SYSTEM SERVICE FAILURE",
 
-"PROCESS TIMEOUT",
+    "SYSTEM RESOURCE FAILURE",
 
-"THREAD FAILURE",
+    "SYSTEM HALTED",
 
-"THREAD NOT RESPONDING",
+    "SYSTEM PROCESS FAILURE",
 
-"MEMORY ERROR",
+    "SYSTEM PROCESS TERMINATED",
 
-"MEMORY ACCESS FAILURE",
+    "SYSTEM MEMORY ERROR",
 
-"MEMORY READ FAILURE",
+    "SYSTEM IO FAILURE",
 
-"MEMORY WRITE FAILURE",
-
-"BUFFER OVERFLOW",
-
-"RESOURCE ALLOCATION FAILURE",
-
-"SERVICE FAILURE",
-
-"SERVICE NOT AVAILABLE",
-
-"SERVICE RESPONSE FAILURE",
-
-"OPERATION FAILED",
-
-"EXECUTION FAILURE",
-
-"RECOVERY FAILURE",
-
-"SYSTEM RECOVERY FAILED",
-
-"SYSTEM INTERRUPTED",
-
-"SYSTEM HALTED"
+    "SYSTEM TIMEOUT"
 
 ];
 
 
-/* =================================================
-   CONNECTION ERROR
-================================================= */
+/* ==================================================
+   CONNECTION
+================================================== */
 
 const connectionErrors = [
 
-"NO CONNECTION",
+    "NO CONNECTION",
 
-"CONNECTION FAILURE",
+    "CONNECTION FAILURE",
 
-"CONNECTION LOST",
+    "CONNECTION LOST",
 
-"CONNECTION TIMEOUT",
+    "CONNECTION TIMEOUT",
 
-"CONNECTION REFUSED",
+    "CONNECTION REFUSED",
 
-"REMOTE CONNECTION FAILED",
+    "REMOTE CONNECTION FAILED",
 
-"SERVER CONNECTION FAILURE",
+    "SERVER CONNECTION FAILURE",
 
-"SERVER NOT RESPONDING",
+    "SERVER NOT RESPONDING",
 
-"NETWORK FAILURE",
+    "NETWORK FAILURE",
 
-"NETWORK CONNECTION FAILURE",
+    "NETWORK CONNECTION FAILURE",
 
-"NETWORK TIMEOUT",
+    "NETWORK TIMEOUT",
 
-"NETWORK UNREACHABLE",
+    "NETWORK UNREACHABLE",
 
-"HOST UNREACHABLE",
+    "HOST UNREACHABLE",
 
-"REMOTE HOST NOT FOUND",
+    "REMOTE HOST NOT FOUND",
 
-"SOCKET CONNECTION FAILURE",
+    "SOCKET CONNECTION FAILURE",
 
-"SOCKET TIMEOUT",
+    "SOCKET TIMEOUT",
 
-"TCP CONNECTION FAILED",
+    "TCP CONNECTION FAILED",
 
-"TCP SESSION LOST",
+    "TCP SESSION LOST",
 
-"DNS RESOLUTION FAILED",
+    "DNS RESOLUTION FAILED",
 
-"NETWORK SERVICE UNAVAILABLE"
+    "NETWORK SERVICE UNAVAILABLE"
 
 ];
 
 
-/* =================================================
-   DATABASE ERROR
-================================================= */
+/* ==================================================
+   DATABASE
+================================================== */
 
 const databaseErrors = [
 
-"DATABASE ERROR",
+    "DATABASE ERROR",
 
-"DATABASE CORRUPTED",
+    "DATABASE CORRUPTED",
 
-"DATABASE CONNECTION FAILURE",
+    "DATABASE CONNECTION FAILURE",
 
-"DATABASE READ FAILURE",
+    "DATABASE READ FAILURE",
 
-"DATABASE WRITE FAILURE",
+    "DATABASE WRITE FAILURE",
 
-"DATABASE RESPONSE TIMEOUT",
+    "DATABASE RESPONSE TIMEOUT",
 
-"DATABASE SERVICE UNAVAILABLE",
+    "DATABASE SERVICE UNAVAILABLE",
 
-"DATABASE INTEGRITY CHECK FAILED",
+    "DATABASE INTEGRITY CHECK FAILED",
 
-"DATABASE TRANSACTION FAILED",
+    "DATABASE TRANSACTION FAILED",
 
-"DATABASE QUERY FAILURE",
+    "DATABASE QUERY FAILURE",
 
-"DATABASE LOCK FAILURE",
+    "DATABASE LOCK FAILURE",
 
-"DATABASE RECOVERY FAILED",
+    "DATABASE RECOVERY FAILED",
 
-"INVALID DATABASE RESPONSE",
+    "INVALID DATABASE RESPONSE",
 
-"CORRUPTED DATABASE BLOCK"
+    "CORRUPTED DATABASE BLOCK"
 
 ];
 
 
-/* =================================================
-   DATA ERROR
-================================================= */
+/* ==================================================
+   DATA
+================================================== */
 
 const dataErrors = [
 
-"DATA CORRUPTED",
+    "DATA CORRUPTED",
 
-"DATA READ FAILURE",
+    "DATA READ FAILURE",
 
-"DATA WRITE FAILURE",
+    "DATA WRITE FAILURE",
 
-"DATA INTEGRITY FAILURE",
+    "DATA INTEGRITY FAILURE",
 
-"DATA VALIDATION FAILURE",
+    "DATA VALIDATION FAILURE",
 
-"DATA STREAM INTERRUPTED",
+    "DATA STREAM INTERRUPTED",
 
-"DATA TRANSMISSION FAILURE",
+    "DATA TRANSMISSION FAILURE",
 
-"DATA PACKET LOST",
+    "DATA PACKET LOST",
 
-"DATA BUFFER ERROR",
+    "DATA BUFFER ERROR",
 
-"DATA CHECKSUM FAILURE",
+    "DATA CHECKSUM FAILURE",
 
-"INVALID DATA RECEIVED",
+    "INVALID DATA RECEIVED",
 
-"CORRUPTED DATA BLOCK",
+    "CORRUPTED DATA BLOCK",
 
-"DATA RECOVERY FAILED"
+    "DATA RECOVERY FAILED"
 
 ];
 
 
-/* =================================================
-   FILE ERROR
-================================================= */
+/* ==================================================
+   FILE / DISK
+================================================== */
 
 const fileErrors = [
 
-"FILE READ ERROR",
+    "FILE READ ERROR",
 
-"FILE WRITE ERROR",
+    "FILE WRITE ERROR",
 
-"FILE ACCESS FAILURE",
+    "FILE ACCESS FAILURE",
 
-"FILE CORRUPTED",
+    "FILE CORRUPTED",
 
-"FILE NOT FOUND",
+    "FILE NOT FOUND",
 
-"FILE SYSTEM ERROR",
+    "FILE SYSTEM ERROR",
 
-"STORAGE READ FAILURE",
+    "STORAGE READ FAILURE",
 
-"STORAGE WRITE FAILURE",
+    "STORAGE WRITE FAILURE",
 
-"DISK READ ERROR",
+    "DISK READ ERROR",
 
-"DISK WRITE ERROR",
+    "DISK WRITE ERROR",
 
-"INPUT OUTPUT FAILURE",
+    "INPUT OUTPUT FAILURE",
 
-"I/O DEVICE ERROR"
+    "I/O DEVICE ERROR"
 
 ];
 
 
-/* =================================================
+/* ==================================================
    RANDOM
-================================================= */
+================================================== */
 
-function random(min,max){
+function random(min, max) {
 
     return Math.floor(
         Math.random() *
-        (max-min+1)
+        (max - min + 1)
     ) + min;
 
 }
 
 
-function pick(array){
+function pick(array) {
 
     return array[
         Math.floor(
-            Math.random()*array.length
+            Math.random() *
+            array.length
         )
     ];
 
 }
 
 
-/* =================================================
-   RANDOM HEX
-================================================= */
+/* ==================================================
+   HEX CODE
+================================================== */
 
-function hex(){
+function hex() {
 
-    return Math
-        .floor(
-            Math.random()*16777215
-        )
-        .toString(16)
-        .toUpperCase()
-        .padStart(6,"0");
+    return Math.floor(
+        Math.random() *
+        16777215
+    )
+    .toString(16)
+    .toUpperCase()
+    .padStart(6, "0");
 
 }
 
 
-/* =================================================
-   RANDOM ID
-================================================= */
+/* ==================================================
+   PID
+================================================== */
 
-function pid(){
+function pid() {
 
     return random(
         1000,
@@ -622,85 +620,80 @@ function pid(){
 }
 
 
-/* =================================================
+/* ==================================================
    RANDOM DATA
-================================================= */
+================================================== */
 
-function randomData(){
+function randomData() {
 
     const chars =
         "0123456789ABCDEF";
 
-    let text="";
+    let result = "";
 
     const length =
-        random(6,25);
+        random(5, 22);
 
-    for(
-        let i=0;
-        i<length;
+    for (
+        let i = 0;
+        i < length;
         i++
-    ){
+    ) {
 
-        text +=
+        result +=
             chars[
                 random(
                     0,
-                    chars.length-1
+                    chars.length - 1
                 )
             ];
 
     }
 
-    return text;
+    return result;
 
 }
 
 
-/* =================================================
-   TIME
-================================================= */
+/* ==================================================
+   WAKTU
+================================================== */
 
-function time(){
+function time() {
 
-    const now =
-        new Date();
+    const now = new Date();
 
     return (
 
-        now
-        .getHours()
-        .toString()
-        .padStart(2,"0")
+        now.getHours()
+            .toString()
+            .padStart(2, "0")
 
         + ":" +
 
-        now
-        .getMinutes()
-        .toString()
-        .padStart(2,"0")
+        now.getMinutes()
+            .toString()
+            .padStart(2, "0")
 
         + ":" +
 
-        now
-        .getSeconds()
-        .toString()
-        .padStart(2,"0")
+        now.getSeconds()
+            .toString()
+            .padStart(2, "0")
 
     );
 
 }
 
 
-/* =================================================
-   GENERATE SATU BARIS
-================================================= */
+/* ==================================================
+   BUAT PESAN
+================================================== */
 
-function generateLine(){
+function createMessage() {
 
-    const roll =
+    const r =
         Math.random();
-
 
     let message;
 
@@ -708,34 +701,22 @@ function generateLine(){
         "normal";
 
 
-    /*
-       60% NORMAL
-    */
+    /* NORMAL */
 
-    if(
-        roll < .60
-    ){
+    if (r < 0.58) {
 
         message =
-            pick(
-                normalMessages
-            );
+            pick(normalMessages);
 
     }
 
 
-    /*
-       10% SYSTEM ERROR
-    */
+    /* SYSTEM ERROR */
 
-    else if(
-        roll < .70
-    ){
+    else if (r < 0.68) {
 
         message =
-            pick(
-                errorMessages
-            );
+            pick(systemErrors);
 
         type =
             "error";
@@ -743,18 +724,12 @@ function generateLine(){
     }
 
 
-    /*
-       10% CONNECTION
-    */
+    /* CONNECTION */
 
-    else if(
-        roll < .80
-    ){
+    else if (r < 0.78) {
 
         message =
-            pick(
-                connectionErrors
-            );
+            pick(connectionErrors);
 
         type =
             "error";
@@ -762,18 +737,12 @@ function generateLine(){
     }
 
 
-    /*
-       10% DATABASE
-    */
+    /* DATABASE */
 
-    else if(
-        roll < .90
-    ){
+    else if (r < 0.88) {
 
         message =
-            pick(
-                databaseErrors
-            );
+            pick(databaseErrors);
 
         type =
             "error";
@@ -781,16 +750,12 @@ function generateLine(){
     }
 
 
-    /*
-       10% DATA
-    */
+    /* DATA */
 
-    else{
+    else if (r < 0.95) {
 
         message =
-            pick(
-                dataErrors
-            );
+            pick(dataErrors);
 
         type =
             "error";
@@ -798,139 +763,151 @@ function generateLine(){
     }
 
 
-    /* =========================================
-       PREFIX
-    ========================================= */
+    /* FILE */
 
-    let line =
+    else {
+
+        message =
+            pick(fileErrors);
+
+        type =
+            "error";
+
+    }
+
+
+    return {
+        message,
+        type
+    };
+
+}
+
+
+/* ==================================================
+   BUAT SATU BARIS
+================================================== */
+
+function addLine() {
+
+    const data =
+        createMessage();
+
+
+    const line =
+        document.createElement(
+            "div"
+        );
+
+
+    line.className =
+        "line " +
+        data.type;
+
+
+    /* ===============================================
+       FORMAT TERMINAL
+    =============================================== */
+
+    let text =
+
         "[" +
         time() +
-        "] ";
+        "] " +
 
-
-    line +=
         "[PID:" +
         pid() +
-        "] ";
+        "] " +
+
+        data.message;
 
 
-    line +=
-        message;
+    /* ===============================================
+       TAMBAHAN
+    =============================================== */
 
-
-    /* =========================================
-       TAMBAHAN RANDOM
-    ========================================= */
-
-    const extra =
+    const r =
         Math.random();
 
 
-    if(
-        extra < .30
-    ){
+    if (r < 0.30) {
 
-        line +=
+        text +=
+
             " | CODE:0x" +
             hex();
 
     }
 
-    else if(
-        extra < .55
-    ){
+    else if (r < 0.50) {
 
-        line +=
+        text +=
+
             " | DATA:" +
             randomData();
 
     }
 
-    else if(
-        extra < .70
-    ){
+    else if (r < 0.65) {
 
-        line +=
+        text +=
+
             " | STATUS:" +
+
             (
-                type === "error"
+                data.type === "error"
                 ? "FAILED"
                 : "RUNNING"
             );
 
     }
 
-    else if(
-        extra < .80
-    ){
+    else if (r < 0.75) {
 
-        line +=
+        text +=
+
             " | RETRY:" +
-            random(1,9);
+            random(1, 9);
 
     }
 
 
-    return {
-        text:line,
-        type:type
-    };
-
-}
+    line.textContent =
+        text;
 
 
-/* =================================================
-   TAMPILKAN BARIS
-================================================= */
-
-function addLine(){
-
-    const data =
-        generateLine();
-
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.textContent =
-        data.text;
-
-
-    div.className =
-        data.type;
-
-
-    /* =========================================
+    /* ===============================================
        ERROR GLITCH JARANG
-    ========================================= */
+    =============================================== */
 
-    if(
+    if (
         data.type === "error" &&
-        Math.random() < .08
-    ){
+        Math.random() < 0.07
+    ) {
 
-        div.classList.add(
+        line.classList.add(
             "glitch"
         );
 
     }
 
 
+    /* ===============================================
+       MASUKKAN KE TERMINAL
+    =============================================== */
+
     output.appendChild(
-        div
+        line
     );
 
 
-    /* =========================================
-       BATASI JUMLAH
-    ========================================= */
+    /* ===============================================
+       BATASI LOG
+    =============================================== */
 
-    while(
+    while (
         output.children.length > 180
-    ){
+    ) {
 
         output.removeChild(
             output.firstElementChild
@@ -938,106 +915,95 @@ function addLine(){
 
     }
 
-
-    /* =========================================
-       TETAP DI BAGIAN PALING BAWAH
-    ========================================= */
-
-    output.scrollTop =
-        output.scrollHeight;
-
 }
 
 
-/* =================================================
-   ISI LAYAR AWAL
-================================================= */
+/* ==================================================
+   ISI LAYAR DULU
+================================================== */
 
-for(
-    let i=0;
-    i<100;
+for (
+    let i = 0;
+    i < 100;
     i++
-){
+) {
 
     addLine();
 
 }
 
 
-/* =================================================
+/* ==================================================
    TERMINAL BERJALAN
-================================================= */
+================================================== */
+
+function runTerminal() {
+
+    /*
+       Tambahkan beberapa baris sekaligus.
+       TIDAK ADA ANIMASI X.
+       TIDAK ADA TRANSLATE.
+       TIDAK ADA GLIDE SAMPING.
+    */
+
+    const amount =
+        random(1, 4);
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        addLine();
+
+    }
+
+}
+
+
+/* ==================================================
+   JALANKAN TERUS
+================================================== */
 
 setInterval(
-
-    ()=>{
-
-        /*
-           1-4 baris setiap interval
-           membuat terminal terlihat
-           seperti proses yang sedang berjalan
-        */
-
-        const amount =
-            random(1,4);
-
-
-        for(
-            let i=0;
-            i<amount;
-            i++
-        ){
-
-            addLine();
-
-        }
-
-    },
-
-    random(
-        60,
-        140
-    )
-
+    runTerminal,
+    100
 );
 
 
-/* =================================================
-   FULLSCREEN DENGAN DOUBLE CLICK
-================================================= */
+/* ==================================================
+   DOUBLE CLICK FULLSCREEN
+================================================== */
 
 document.addEventListener(
-
     "dblclick",
+    async function () {
 
-    async ()=>{
+        try {
 
-        try{
-
-            if(
+            if (
                 !document.fullscreenElement
-            ){
+            ) {
 
-                await
-                document
-                .documentElement
-                .requestFullscreen();
+                await document
+                    .documentElement
+                    .requestFullscreen();
 
             }
 
         }
-        catch(e){
+        catch (e) {
 
             console.log(e);
 
         }
 
     }
-
 );
 
 </script>
 
 </body>
-
 </html>
