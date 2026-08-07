@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width,
-initial-scale=1.0,
-maximum-scale=1.0,
-user-scalable=no">
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
-<title>System Error</title>
+<title>System Failure</title>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
     margin:0;
@@ -19,15 +25,25 @@ user-scalable=no">
     box-sizing:border-box;
 }
 
+
+/* =====================================================
+   FULL VIEWPORT
+===================================================== */
+
 html,
 body{
 
     width:100%;
     height:100%;
 
+    min-width:100%;
+    min-height:100%;
+
     overflow:hidden;
 
     background:#000;
+
+    color:#fff;
 
     font-family:
         "Courier New",
@@ -35,18 +51,23 @@ body{
 
 }
 
-/* =========================================
-   LAYAR
-========================================= */
+
+/* =====================================================
+   SCREEN
+===================================================== */
 
 #screen{
 
     position:fixed;
 
-    inset:0;
+    left:0;
+    top:0;
 
     width:100vw;
     height:100vh;
+
+    min-width:100vw;
+    min-height:100vh;
 
     overflow:hidden;
 
@@ -55,221 +76,179 @@ body{
 }
 
 
-/* =========================================
-   TEKS RANDOM
-========================================= */
+/* =====================================================
+   CONTAINER
+===================================================== */
 
-.error{
+#terminal{
 
     position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+}
+
+
+/* =====================================================
+   BARIS GLIDE
+===================================================== */
+
+.line{
+
+    position:absolute;
+
+    left:0;
+
+    width:max-content;
+
+    max-width:none;
 
     white-space:nowrap;
 
-    pointer-events:none;
+    color:#fff;
 
-    font-weight:bold;
+    font-weight:normal;
+
+    line-height:1;
+
+    opacity:.95;
+
+    will-change:transform;
 
     text-shadow:
-        0 0 4px currentColor,
-        0 0 8px currentColor;
+        0 0 2px #fff;
+
+}
+
+
+/* =====================================================
+   GLIDE KIRI
+===================================================== */
+
+.left{
 
     animation:
-
-        glitchMove
-        var(--speed)
-        infinite
-        linear,
-
-        flicker
-        var(--flicker)
-        infinite
-        alternate;
+        moveLeft
+        var(--duration)
+        linear
+        infinite;
 
 }
 
 
-/* =========================================
-   GLITCH GERAK
-========================================= */
+/* =====================================================
+   GLIDE KANAN
+===================================================== */
 
-@keyframes glitchMove{
-
-    0%{
-
-        transform:
-        translate(
-            0px,
-            0px
-        )
-        skewX(0deg);
-
-    }
-
-    20%{
-
-        transform:
-        translate(
-            var(--gx1),
-            var(--gy1)
-        )
-        skewX(8deg);
-
-    }
-
-    40%{
-
-        transform:
-        translate(
-            var(--gx2),
-            var(--gy2)
-        )
-        skewX(-8deg);
-
-    }
-
-    60%{
-
-        transform:
-        translate(
-            var(--gx3),
-            var(--gy3)
-        )
-        skewX(5deg);
-
-    }
-
-    80%{
-
-        transform:
-        translate(
-            var(--gx4),
-            var(--gy4)
-        )
-        skewX(-5deg);
-
-    }
-
-    100%{
-
-        transform:
-        translate(
-            0px,
-            0px
-        )
-        skewX(0deg);
-
-    }
-
-}
-
-
-/* =========================================
-   KEDIP
-========================================= */
-
-@keyframes flicker{
-
-    0%{
-        opacity:.2;
-    }
-
-    20%{
-        opacity:1;
-    }
-
-    40%{
-        opacity:.4;
-    }
-
-    60%{
-        opacity:1;
-    }
-
-    80%{
-        opacity:.1;
-    }
-
-    100%{
-        opacity:1;
-    }
-
-}
-
-
-/* =========================================
-   GARIS GLITCH
-========================================= */
-
-.glitchLine{
-
-    position:absolute;
-
-    height:2px;
-
-    background:#00ff00;
-
-    opacity:.5;
-
-    box-shadow:
-        0 0 10px #00ff00;
+.right{
 
     animation:
-        lineMove
-        var(--lineSpeed)
-        infinite
-        linear;
+        moveRight
+        var(--duration)
+        linear
+        infinite;
 
 }
 
 
-@keyframes lineMove{
+@keyframes moveLeft{
 
-    0%{
-
-        transform:
-        translateX(-100%);
-
-    }
-
-    100%{
-
+    from{
         transform:
         translateX(100vw);
+    }
 
+    to{
+        transform:
+        translateX(-120%);
     }
 
 }
 
 
-/* =========================================
-   FLASH ERROR
-========================================= */
+@keyframes moveRight{
 
-.bigError{
+    from{
+        transform:
+        translateX(-120%);
+    }
+
+    to{
+        transform:
+        translateX(100vw);
+    }
+
+}
+
+
+/* =====================================================
+   GLITCH LINE
+===================================================== */
+
+.glitch{
+
+    animation:
+        glitch
+        .12s
+        infinite;
+
+}
+
+
+@keyframes glitch{
+
+    0%{
+        transform:translateX(0);
+    }
+
+    25%{
+        transform:translateX(-8px);
+    }
+
+    50%{
+        transform:translateX(7px);
+    }
+
+    75%{
+        transform:translateX(-4px);
+    }
+
+    100%{
+        transform:translateX(0);
+    }
+
+}
+
+
+/* =====================================================
+   ERROR BESAR
+===================================================== */
+
+.big-error{
 
     position:absolute;
 
-    color:#ff003c;
+    z-index:50;
 
-    font-size:
-        clamp(
-            20px,
-            5vw,
-            80px
-        );
+    color:#fff;
 
     font-weight:bold;
 
-    text-shadow:
+    white-space:nowrap;
 
-        0 0 5px red,
-        0 0 15px red,
-        0 0 30px red;
+    text-shadow:
+        0 0 4px #fff,
+        0 0 10px #fff;
 
     animation:
-
         bigGlitch
-        .12s
+        .15s
         infinite;
 
 }
@@ -278,258 +257,403 @@ body{
 @keyframes bigGlitch{
 
     0%{
-        transform:translate(0);
+        transform:
+        translate(0,0);
     }
 
-    25%{
+    20%{
         transform:
-        translate(-10px,5px);
+        translate(-12px,4px);
     }
 
-    50%{
+    40%{
         transform:
-        translate(10px,-5px);
+        translate(10px,-3px);
     }
 
-    75%{
+    60%{
         transform:
-        translate(-5px,-3px);
+        translate(-6px,2px);
+    }
+
+    80%{
+        transform:
+        translate(8px,-4px);
     }
 
     100%{
-        transform:translate(0);
+        transform:
+        translate(0,0);
     }
 
 }
 
 
-/* =========================================
-   TOMBOL
-========================================= */
+/* =====================================================
+   FLASH
+===================================================== */
 
-#fullscreenBtn{
+#flash{
 
     position:fixed;
 
-    right:15px;
-    top:15px;
+    inset:0;
 
-    z-index:999999;
+    z-index:999;
+
+    background:#fff;
+
+    pointer-events:none;
+
+    opacity:0;
+
+}
+
+
+.flash{
+
+    animation:
+        flash
+        .15s
+        linear;
+
+}
+
+
+@keyframes flash{
+
+    0%{
+        opacity:.8;
+    }
+
+    100%{
+        opacity:0;
+    }
+
+}
+
+
+/* =====================================================
+   SCANLINE
+===================================================== */
+
+#scanline{
+
+    position:fixed;
+
+    left:0;
+
+    top:-5px;
+
+    width:100%;
+
+    height:2px;
+
+    background:#fff;
+
+    opacity:.12;
+
+    z-index:1000;
+
+    pointer-events:none;
+
+    animation:
+        scan
+        2s
+        linear
+        infinite;
+
+}
+
+
+@keyframes scan{
+
+    from{
+        top:-5px;
+    }
+
+    to{
+        top:100vh;
+    }
+
+}
+
+
+/* =====================================================
+   HILANGKAN SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+    display:none;
+}
+
+
+/* =====================================================
+   FULLSCREEN
+===================================================== */
+
+:fullscreen{
+
+    width:100vw;
+    height:100vh;
 
     background:#000;
 
-    color:#00ff00;
-
-    border:
-        1px solid
-        #00ff00;
-
-    padding:
-        8px 14px;
-
-    font-family:
-        "Courier New";
-
-    cursor:pointer;
-
-    font-size:12px;
-
 }
-
-
-#fullscreenBtn:hover{
-
-    background:#00ff00;
-
-    color:#000;
-
-}
-
 
 </style>
+
 </head>
 
 
 <body>
 
 
-<div id="screen"></div>
+<div id="screen">
+
+    <div id="terminal"></div>
+
+</div>
 
 
-<button id="fullscreenBtn">
-[ FULLSCREEN ]
-</button>
+<div id="flash"></div>
+
+<div id="scanline"></div>
 
 
 <script>
 
 
-// =====================================================
-// DATA
-// =====================================================
+/* =====================================================
+   ELEMENT
+===================================================== */
 
-const screen =
-document.getElementById("screen");
+const terminal =
+document.getElementById("terminal");
+
+const flash =
+document.getElementById("flash");
 
 
-const chars = [
+/* =====================================================
+   PESAN ERROR
+===================================================== */
 
-"!",
-"@",
-"#",
-"$",
-"%",
-"^",
-"&",
-"*",
-"(",
-")",
-"_",
-"+",
-"=",
-"{",
-"}",
-"[",
-"]",
-"|",
-"\\",
-";",
-":",
-"<",
-">",
-"?",
-"/",
+const messages = [
 
-"0",
-"1",
-"2",
-"3",
-"4",
-"5",
-"6",
-"7",
-"8",
-"9",
+    "NO CONNECTION",
 
-"A",
-"B",
-"C",
-"D",
-"E",
-"F",
+    "CONNECTION FAILURE",
 
-"X",
-"Y",
-"Z",
+    "CONNECTION LOST",
 
-"∆",
-"∑",
-"∂",
-"∫",
-"∞",
-"≠",
-"≈",
-"√",
-"Ω",
-"λ",
-"µ",
+    "CONNECTION TIMEOUT",
 
-"←",
-"→",
-"↑",
-"↓",
+    "NETWORK FAILURE",
 
-"█",
-"▓",
-"▒",
-"░"
+    "NETWORK CONNECTION FAILED",
+
+    "DATABASE CORRUPTED",
+
+    "DATABASE CONNECTION FAILURE",
+
+    "DATABASE READ FAILURE",
+
+    "DATABASE WRITE FAILURE",
+
+    "DATA CORRUPTED",
+
+    "DATA INTEGRITY FAILURE",
+
+    "DATA READ ERROR",
+
+    "DATA WRITE ERROR",
+
+    "DATA STREAM INTERRUPTED",
+
+    "DATA TRANSMISSION FAILURE",
+
+    "PACKET LOST",
+
+    "PACKET TRANSMISSION FAILED",
+
+    "PACKET TIMEOUT",
+
+    "SERVER NOT RESPONDING",
+
+    "SERVER CONNECTION FAILURE",
+
+    "REMOTE HOST NOT FOUND",
+
+    "HOST CONNECTION REFUSED",
+
+    "NETWORK TIMEOUT",
+
+    "REQUEST TIMEOUT",
+
+    "REQUEST FAILED",
+
+    "RESPONSE FAILURE",
+
+    "INVALID RESPONSE",
+
+    "INVALID DATA",
+
+    "CORRUPTED PACKET",
+
+    "MEMORY ERROR",
+
+    "MEMORY READ FAILURE",
+
+    "MEMORY WRITE FAILURE",
+
+    "BUFFER OVERFLOW",
+
+    "BUFFER UNDERFLOW",
+
+    "SYSTEM FAILURE",
+
+    "SYSTEM ERROR",
+
+    "SYSTEM INTERRUPTED",
+
+    "SYSTEM RESPONSE FAILURE",
+
+    "PROCESS FAILURE",
+
+    "PROCESS TERMINATED",
+
+    "PROCESS NOT RESPONDING",
+
+    "KERNEL ERROR",
+
+    "KERNEL PANIC",
+
+    "FATAL EXCEPTION",
+
+    "FATAL SYSTEM ERROR",
+
+    "UNEXPECTED ERROR",
+
+    "UNKNOWN ERROR",
+
+    "ACCESS DENIED",
+
+    "PERMISSION DENIED",
+
+    "AUTHENTICATION FAILURE",
+
+    "AUTHORIZATION FAILURE",
+
+    "SECURITY CHECK FAILURE",
+
+    "PROTOCOL ERROR",
+
+    "PROTOCOL FAILURE",
+
+    "HANDSHAKE FAILURE",
+
+    "SOCKET ERROR",
+
+    "SOCKET CONNECTION LOST",
+
+    "TCP CONNECTION FAILED",
+
+    "IP CONNECTION FAILURE",
+
+    "DNS RESOLUTION FAILED",
+
+    "HOST UNREACHABLE",
+
+    "SERVICE UNAVAILABLE",
+
+    "SERVICE FAILURE",
+
+    "FILE NOT FOUND",
+
+    "FILE READ FAILURE",
+
+    "FILE WRITE FAILURE",
+
+    "FILE CORRUPTED",
+
+    "STORAGE FAILURE",
+
+    "DISK READ ERROR",
+
+    "DISK WRITE ERROR",
+
+    "IO ERROR",
+
+    "INPUT OUTPUT FAILURE",
+
+    "OPERATION FAILED",
+
+    "OPERATION INTERRUPTED",
+
+    "EXECUTION FAILURE",
+
+    "COMMAND FAILURE",
+
+    "RESOURCE NOT AVAILABLE",
+
+    "RESOURCE FAILURE",
+
+    "SYSTEM HALTED",
+
+    "SYSTEM RECOVERY FAILED",
+
+    "RECOVERY FAILURE",
+
+    "BACKUP FAILURE",
+
+    "RESTORE FAILURE",
+
+    "ENCRYPTION FAILURE",
+
+    "DECRYPTION FAILURE",
+
+    "HASH VERIFICATION FAILED",
+
+    "CHECKSUM ERROR",
+
+    "SIGNATURE VERIFICATION FAILED",
+
+    "INVALID SESSION",
+
+    "SESSION EXPIRED",
+
+    "SESSION CONNECTION LOST",
+
+    "SERVICE CONNECTION LOST"
 
 ];
 
 
-const errors = [
+/* =====================================================
+   KARAKTER ABSURD
+===================================================== */
 
-"SYSTEM ERROR",
+const symbols =
 
-"CRITICAL FAILURE",
+"!@#$%^&*()_+-=[]{}|;:',.<>?/\\~`" +
 
-"ACCESS DENIED",
+"0123456789" +
 
-"UNAUTHORIZED ACCESS",
+"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
 
-"MEMORY CORRUPTED",
+"abcdefghijklmnopqrstuvwxyz" +
 
-"DATA CORRUPTED",
+"∆∑∂∫∞≠≈√Ωλµ" +
 
-"BUFFER OVERFLOW",
+"←↑→↓↔⇄⇅" +
 
-"CONNECTION LOST",
-
-"NETWORK ERROR",
-
-"FATAL EXCEPTION",
-
-"SECURITY BREACH",
-
-"KERNEL PANIC",
-
-"BOOT FAILURE",
-
-"DISK ERROR",
-
-"READ ERROR",
-
-"WRITE ERROR",
-
-"SEGMENTATION FAULT",
-
-"PROCESS TERMINATED",
-
-"FIREWALL ERROR",
-
-"ENCRYPTION FAILED",
-
-"PROTOCOL ERROR",
-
-"UNKNOWN ERROR",
-
-"STACK OVERFLOW",
-
-"INVALID MEMORY",
-
-"FILE CORRUPTED",
-
-"PORT ERROR",
-
-"TCP CONNECTION LOST",
-
-"PACKET LOSS",
-
-"TIMEOUT",
-
-"NULL POINTER"
-
-];
+"░▒▓█";
 
 
-const colors = [
-
-"#00ff00",
-"#00ff66",
-"#00ffff",
-"#00ccff",
-"#ffffff",
-"#ff003c",
-"#ff0040",
-"#ff6600",
-"#ffff00"
-
-];
-
-
-// =====================================================
-// RANDOM
-// =====================================================
+/* =====================================================
+   RANDOM
+===================================================== */
 
 function random(min,max){
 
@@ -541,7 +665,7 @@ function random(min,max){
 }
 
 
-function randomItem(arr){
+function pick(arr){
 
     return arr[
         Math.floor(
@@ -552,17 +676,13 @@ function randomItem(arr){
 }
 
 
-// =====================================================
-// RANDOM STRING
-// =====================================================
+/* =====================================================
+   ABSURD TEXT
+===================================================== */
 
-function randomString(){
+function randomNoise(length){
 
     let result="";
-
-    const length =
-        random(10,80);
-
 
     for(
         let i=0;
@@ -571,7 +691,12 @@ function randomString(){
     ){
 
         result +=
-            randomItem(chars);
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
 
     }
 
@@ -580,431 +705,387 @@ function randomString(){
 }
 
 
-// =====================================================
-// BUAT TEKS
-// =====================================================
+/* =====================================================
+   RANDOM ERROR CODE
+===================================================== */
 
-function createText(){
+function errorCode(){
 
-    const el =
-        document.createElement("div");
-
-
-    el.className =
-        "error";
-
-
-    // =============================================
-    // RANDOM ISI
-    // =============================================
-
-    let content;
-
-
-    const chance =
-        Math.random();
-
-
-    if(chance < .08){
-
-        content =
-            randomItem(errors) +
-            " [0x" +
-            random(
-                1000,
-                999999
-            )
-            .toString(16)
-            .toUpperCase() +
-            "]";
-
-    }
-
-    else if(chance < .20){
-
-        content =
-            randomItem(errors);
-
-    }
-
-    else{
-
-        content =
-            randomString();
-
-    }
-
-
-    el.textContent =
-        content;
-
-
-    // =============================================
-    // POSISI RANDOM SELURUH LAYAR
-    // =============================================
-
-    el.style.left =
-        random(-10,95) + "vw";
-
-
-    el.style.top =
-        random(-5,95) + "vh";
-
-
-    // =============================================
-    // UKURAN RANDOM
-    // =============================================
-
-    el.style.fontSize =
-        random(9,24) + "px";
-
-
-    // =============================================
-    // WARNA RANDOM
-    // =============================================
-
-    el.style.color =
-        randomItem(colors);
-
-
-    // =============================================
-    // SPEED RANDOM
-    // =============================================
-
-    el.style.setProperty(
-        "--speed",
-        random(1,6) + "s"
-    );
-
-
-    el.style.setProperty(
-        "--flicker",
-        random(100,700) + "ms"
-    );
-
-
-    // =============================================
-    // GLITCH RANDOM
-    // =============================================
-
-    el.style.setProperty(
-        "--gx1",
-        random(-30,30) + "px"
-    );
-
-    el.style.setProperty(
-        "--gy1",
-        random(-15,15) + "px"
-    );
-
-
-    el.style.setProperty(
-        "--gx2",
-        random(-50,50) + "px"
-    );
-
-    el.style.setProperty(
-        "--gy2",
-        random(-20,20) + "px"
-    );
-
-
-    el.style.setProperty(
-        "--gx3",
-        random(-20,20) + "px"
-    );
-
-    el.style.setProperty(
-        "--gy3",
-        random(-30,30) + "px"
-    );
-
-
-    el.style.setProperty(
-        "--gx4",
-        random(-60,60) + "px"
-    );
-
-    el.style.setProperty(
-        "--gy4",
-        random(-20,20) + "px"
-    );
-
-
-    screen.appendChild(el);
-
-
-    // =============================================
-    // HAPUS
-    // =============================================
-
-    setTimeout(
-        ()=>{
-
-            el.remove();
-
-        },
-        random(
-            3000,
-            9000
+    const code =
+        Math.floor(
+            Math.random() *
+            16777215
         )
-    );
+        .toString(16)
+        .toUpperCase();
+
+    return " [0x" + code + "]";
 
 }
 
 
-// =====================================================
-// GARIS GLITCH
-// =====================================================
+/* =====================================================
+   BUAT ISI BARIS
+===================================================== */
 
-function createLine(){
+function createContent(){
+
+    const mode =
+        Math.random();
+
+
+    let text="";
+
+
+    /* ================================================
+       ERROR
+    ================================================ */
+
+    if(mode < .45){
+
+        text =
+            pick(messages) +
+            errorCode();
+
+    }
+
+
+    /* ================================================
+       ERROR + ABSURD
+    ================================================ */
+
+    else if(mode < .75){
+
+        text =
+            pick(messages) +
+            " " +
+            randomNoise(
+                random(20,80)
+            );
+
+    }
+
+
+    /* ================================================
+       FULL ABSURD
+    ================================================ */
+
+    else{
+
+        text =
+            randomNoise(
+                random(60,180)
+            );
+
+    }
+
+
+    return text;
+
+}
+
+
+/* =====================================================
+   BUAT BARIS
+===================================================== */
+
+function createLine(index){
 
     const line =
         document.createElement("div");
 
 
     line.className =
-        "glitchLine";
+        "line";
+
+
+    line.textContent =
+        createContent();
+
+
+    /* ================================================
+       POSISI VERTIKAL
+    ================================================ */
+
+    const y =
+        (index / 70) * 100;
 
 
     line.style.top =
-        random(0,100) + "vh";
+        y + "vh";
 
 
-    line.style.width =
-        random(10,100) + "vw";
+    /* ================================================
+       RANDOM FONT
+    ================================================ */
+
+    line.style.fontSize =
+        random(9,18) + "px";
 
 
-    line.style.background =
-        randomItem(colors);
+    /* ================================================
+       RANDOM OPACITY
+    ================================================ */
 
+    line.style.opacity =
+        (random(55,100)/100);
+
+
+    /* ================================================
+       RANDOM PANJANG
+    ================================================ */
+
+    line.style.minWidth =
+        random(120,280) + "vw";
+
+
+    /* ================================================
+       RANDOM SPEED
+    ================================================ */
 
     line.style.setProperty(
-        "--lineSpeed",
-        random(1,4) + "s"
+
+        "--duration",
+
+        random(4,14) + "s"
+
     );
 
 
-    screen.appendChild(line);
+    /* ================================================
+       RANDOM ARAH
+    ================================================ */
 
+    if(
+        Math.random() < .5
+    ){
+
+        line.classList.add(
+            "left"
+        );
+
+    }
+
+    else{
+
+        line.classList.add(
+            "right"
+        );
+
+    }
+
+
+    /* ================================================
+       GLITCH RANDOM
+    ================================================ */
+
+    if(
+        Math.random() < .18
+    ){
+
+        line.classList.add(
+            "glitch"
+        );
+
+    }
+
+
+    terminal.appendChild(
+        line
+    );
+
+
+    /* ================================================
+       HAPUS DAN BUAT ULANG
+    ================================================ */
 
     setTimeout(
+
         ()=>{
+
             line.remove();
+
+            createLine(index);
+
         },
-        4000
+
+        random(5000,15000)
+
     );
 
 }
 
 
-// =====================================================
-// BIG ERROR
-// =====================================================
-
-function createBigError(){
-
-    const el =
-        document.createElement("div");
-
-
-    el.className =
-        "bigError";
-
-
-    el.textContent =
-        randomItem(errors);
-
-
-    el.style.left =
-        random(5,65) + "vw";
-
-
-    el.style.top =
-        random(10,80) + "vh";
-
-
-    screen.appendChild(el);
-
-
-    setTimeout(
-        ()=>{
-            el.remove();
-        },
-        random(
-            300,
-            1200
-        )
-    );
-
-}
-
-
-// =====================================================
-// GENERATOR CEPAT
-// =====================================================
-
-setInterval(
-
-    ()=>{
-
-        // banyak tulisan
-
-        for(
-            let i=0;
-            i<random(5,15);
-            i++
-        ){
-
-            createText();
-
-        }
-
-    },
-
-    100
-
-);
-
-
-// =====================================================
-// GLITCH LINE
-// =====================================================
-
-setInterval(
-
-    ()=>{
-
-        for(
-            let i=0;
-            i<random(1,4);
-            i++
-        ){
-
-            createLine();
-
-        }
-
-    },
-
-    300
-
-);
-
-
-// =====================================================
-// BIG ERROR RANDOM
-// =====================================================
-
-setInterval(
-
-    ()=>{
-
-        if(
-            Math.random() < .35
-        ){
-
-            createBigError();
-
-        }
-
-    },
-
-    800
-
-);
-
-
-// =====================================================
-// AWAL LANGSUNG PENUH
-// =====================================================
+/* =====================================================
+   BUAT 75 BARIS
+===================================================== */
 
 for(
     let i=0;
-    i<250;
+    i<75;
     i++
 ){
 
-    createText();
+    createLine(i);
 
 }
 
 
-// =====================================================
-// FULLSCREEN
-// =====================================================
+/* =====================================================
+   ERROR BESAR
+===================================================== */
 
-const btn =
-    document.getElementById(
-        "fullscreenBtn"
+function bigError(){
+
+    const el =
+        document.createElement(
+            "div"
+        );
+
+
+    el.className =
+        "big-error";
+
+
+    el.textContent =
+        pick(messages);
+
+
+    el.style.left =
+        random(5,60) + "vw";
+
+
+    el.style.top =
+        random(10,85) + "vh";
+
+
+    el.style.fontSize =
+        random(22,60) + "px";
+
+
+    terminal.appendChild(
+        el
     );
 
 
-btn.onclick = async ()=>{
+    setTimeout(
 
-    try{
+        ()=>{
+
+            el.remove();
+
+        },
+
+        random(
+            400,
+            1400
+        )
+
+    );
+
+}
+
+
+/* =====================================================
+   ERROR BESAR BERKALA
+===================================================== */
+
+setInterval(
+
+    ()=>{
 
         if(
-            !document.fullscreenElement
+            Math.random() < .7
         ){
 
-            await
-            document
-            .documentElement
-            .requestFullscreen();
-
-
-            btn.textContent =
-                "[ EXIT FULLSCREEN ]";
+            bigError();
 
         }
 
-        else{
+    },
 
-            await
-            document
-            .exitFullscreen();
+    900
+
+);
 
 
-            btn.textContent =
-                "[ FULLSCREEN ]";
+/* =====================================================
+   FLASH RANDOM
+===================================================== */
+
+setInterval(
+
+    ()=>{
+
+        if(
+            Math.random() < .08
+        ){
+
+            flash.classList.remove(
+                "flash"
+            );
+
+            void flash.offsetWidth;
+
+            flash.classList.add(
+                "flash"
+            );
+
+        }
+
+    },
+
+    700
+
+);
+
+
+/* =====================================================
+   FULLSCREEN
+===================================================== */
+
+document.addEventListener(
+    "dblclick",
+    async ()=>{
+
+        try{
+
+            if(
+                !document.fullscreenElement
+            ){
+
+                await
+                document
+                .documentElement
+                .requestFullscreen();
+
+            }
+
+        }
+
+        catch(e){
+
+            console.log(e);
 
         }
 
     }
-
-    catch(e){
-
-        console.log(e);
-
-    }
-
-};
+);
 
 
-// =====================================================
-// FULLSCREEN CHANGE
-// =====================================================
+/* =====================================================
+   F11 / FULLSCREEN CHANGE
+===================================================== */
 
 document.addEventListener(
     "fullscreenchange",
     ()=>{
 
-        if(
-            document.fullscreenElement
-        ){
+        document.body.style.width =
+            "100vw";
 
-            btn.textContent =
-                "[ EXIT FULLSCREEN ]";
-
-        }
-
-        else{
-
-            btn.textContent =
-                "[ FULLSCREEN ]";
-
-        }
+        document.body.style.height =
+            "100vh";
 
     }
 );
@@ -1013,4 +1094,5 @@ document.addEventListener(
 </script>
 
 </body>
+
 </html>
